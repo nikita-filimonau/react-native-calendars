@@ -109,6 +109,7 @@ class CalendarList extends Component {
       openDate: date,
       currentMonth: parseDate(props.current)
     };
+    this.onLayout = this.onLayout.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -280,6 +281,14 @@ class CalendarList extends Component {
     }
   }
 
+  onLayout(event) {
+    if (this.props.onLayout) {
+      setTimeout(() => {
+          this.props.onLayout(event);
+      }, 1);
+    }
+  }
+
   render() {
     const {style, pastScrollRange, futureScrollRange, horizontal, showScrollIndicator, testID} = this.props;
 
@@ -298,7 +307,7 @@ class CalendarList extends Component {
           showsVerticalScrollIndicator={showScrollIndicator}
           showsHorizontalScrollIndicator={horizontal && showScrollIndicator}
           testID={testID}
-          onLayout={this.props.onLayout}
+          onLayout={this.onLayout}
           removeClippedSubviews={this.props.removeClippedSubviews}
           pagingEnabled={this.props.pagingEnabled}
           scrollEnabled={this.props.scrollEnabled}
